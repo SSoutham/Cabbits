@@ -17,6 +17,8 @@ public enum Cell : byte
     GROWING_BUSH = 8,
     DISAPPEARING_ASH = 9,
     FIRE = 10,
+    CARROT = 11,
+    GROWING_CARROT = 12,
     BURNING_GRASS = 98,
     NONE = 99,
 };
@@ -343,12 +345,21 @@ public class MapGenerator : MonoBehaviour
                         continue;
                     }
 
-                    //Generate Bush
+                    //Generate Bush or Carrot
                     if (cells[x, y] == Cell.GRASS && y != 1)
                     {
-                        cells[x, y] = Cell.GROWING_BUSH;
-                        cellTimers[x, y] = 1.0f;
-                        RenderCell(x, y, highLevel);
+                        if (Random.Range(0, 10) == 0)
+                        {
+                            cells[x, y] = Cell.GROWING_CARROT;
+                            cellTimers[x, y] = 1.0f;
+                            RenderCell(x, y, highLevel);
+                        }
+                        else
+                        {
+                            cells[x, y] = Cell.GROWING_BUSH;
+                            cellTimers[x, y] = 1.0f;
+                            RenderCell(x, y, highLevel);
+                        }
 
                         continue;
                     }
@@ -357,6 +368,15 @@ public class MapGenerator : MonoBehaviour
                     if (cells[x, y] == Cell.GROWING_BUSH)
                     {
                         cells[x, y] = Cell.BUSH;
+                        cellTimers[x, y] = float.PositiveInfinity;
+                        RenderCell(x, y, highLevel);
+                        continue;
+                    }
+
+                    //Bush Grow
+                    if (cells[x, y] == Cell.GROWING_CARROT)
+                    {
+                        cells[x, y] = Cell.CARROT;
                         cellTimers[x, y] = float.PositiveInfinity;
                         RenderCell(x, y, highLevel);
                         continue;

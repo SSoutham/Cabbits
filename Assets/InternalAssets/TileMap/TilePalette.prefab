@@ -40,7 +40,7 @@ Grid:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4574945062851989016}
   m_Enabled: 1
-  m_CellSize: {x: 1.625, y: 1.625, z: 0}
+  m_CellSize: {x: 0.75, y: 0.6875, z: 0}
   m_CellGap: {x: 0, y: 0, z: 0}
   m_CellLayout: 0
   m_CellSwizzle: 0
@@ -156,6 +156,15 @@ Tilemap:
       m_TileColorIndex: 1
       m_ObjectToInstantiate: {fileID: 0}
       m_TileFlags: 2
+      m_ColliderType: 1
+  - first: {x: -1, y: -3, z: 0}
+    second:
+      m_TileIndex: 77
+      m_TileSpriteIndex: 78
+      m_TileMatrixIndex: 0
+      m_TileColorIndex: 1
+      m_ObjectToInstantiate: {fileID: 0}
+      m_TileFlags: 1
       m_ColliderType: 1
   m_AnimatedTiles:
   - first: {x: -1, y: -6, z: 0}
@@ -329,12 +338,12 @@ Tilemap:
     m_Data: {fileID: 0}
   - m_RefCount: 0
     m_Data: {fileID: 0}
-  - m_RefCount: 0
+  - m_RefCount: 1
+    m_Data: {fileID: 11400000, guid: 5b7d6731e1f8f6042a40fff92b4a0193, type: 2}
+  - m_RefCount: 1
     m_Data: {fileID: 0}
   - m_RefCount: 1
-    m_Data: {fileID: 11400000, guid: 07c8b6dc111417a4bbdc10541a03452c, type: 2}
-  - m_RefCount: 1
-    m_Data: {fileID: 11400000, guid: aa81e7b3b67661f4f9716a5b9311070c, type: 2}
+    m_Data: {fileID: 0}
   - m_RefCount: 1
     m_Data: {fileID: 11400000, guid: 5d63e7fd720bdd2468550bfa33d5db06, type: 2}
   - m_RefCount: 1
@@ -504,8 +513,8 @@ Tilemap:
     m_Data: {fileID: 0}
   - m_RefCount: 0
     m_Data: {fileID: 0}
-  - m_RefCount: 0
-    m_Data: {fileID: 0}
+  - m_RefCount: 1
+    m_Data: {fileID: 21300018, guid: ee7d60c571135724cbda5047a20672c5, type: 3}
   - m_RefCount: 2
     m_Data: {fileID: 21300000, guid: 4a565326ce735564c9beaec7a3fc4c8e, type: 3}
   - m_RefCount: 1
@@ -521,7 +530,7 @@ Tilemap:
   - m_RefCount: 1
     m_Data: {fileID: 21300126, guid: ecaa30336b468744588c34e89e8640ad, type: 3}
   m_TileMatrixArray:
-  - m_RefCount: 8
+  - m_RefCount: 9
     m_Data:
       e00: 1
       e01: 0
@@ -542,7 +551,7 @@ Tilemap:
   m_TileColorArray:
   - m_RefCount: 0
     m_Data: {r: 1.7337e-41, g: 1.7337e-41, b: 1.7337e-41, a: 1.7337e-41}
-  - m_RefCount: 8
+  - m_RefCount: 9
     m_Data: {r: 1, g: 1, b: 1, a: 1}
   - m_RefCount: 0
     m_Data: {r: 0, g: 0, b: 0, a: 0}

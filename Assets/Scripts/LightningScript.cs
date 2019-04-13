@@ -18,7 +18,11 @@ public class LightningScript : ThreatScript
         Collider2D[] hits = Physics2D.OverlapCircleAll(transform.position, .1f, LayerMask.GetMask("Carriable"));
         foreach (Collider2D c in hits)
         {
-            c.GetComponent<CarryScript>().Die(DeathReason.ELECTRICITY);
+            CarryScript carry = c.GetComponent<CarryScript>();
+            if (carry)
+            {
+                carry.Die(DeathReason.ELECTRICITY);
+            }
         }
 
         Destroy(gameObject);

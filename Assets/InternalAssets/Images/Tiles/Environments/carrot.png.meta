@@ -1,14 +1,17 @@
 fileFormatVersion: 2
-guid: 042cfcc277c11104dbea84c69db287cb
+guid: ee7d60c571135724cbda5047a20672c5
 TextureImporter:
   fileIDToRecycleName:
-    21300000: AshSpawn_0
-    21300002: AshSpawn_1
-    21300004: AshSpawn_2
-    21300006: AshSpawn_3
-    21300008: AshSpawn_4
-    21300010: AshSpawn_5
-    21300012: AshSpawn_6
+    21300000: carrot_0
+    21300002: carrot_1
+    21300004: carrot_2
+    21300006: carrot_3
+    21300008: carrot_4
+    21300010: carrot_5
+    21300012: carrot_6
+    21300014: carrot_7
+    21300016: carrot_8
+    21300018: carrot_9
   externalObjects: {}
   serializedVersion: 9
   mipmaps:
@@ -67,7 +70,7 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 2
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 64
+    maxTextureSize: 256
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 0
@@ -78,7 +81,7 @@ TextureImporter:
     androidETC2FallbackOverride: 0
   - serializedVersion: 2
     buildTarget: Standalone
-    maxTextureSize: 64
+    maxTextureSize: 256
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 0
@@ -89,7 +92,7 @@ TextureImporter:
     androidETC2FallbackOverride: 0
   - serializedVersion: 2
     buildTarget: Android
-    maxTextureSize: 64
+    maxTextureSize: 256
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 0
@@ -102,141 +105,201 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: AshSpawn_0
+      name: carrot_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 16
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        y: 0
+        width: 24
+        height: 24
+      alignment: 9
+      pivot: {x: 0.5, y: 0.15}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ab278ff4f9cc2d341a00384d857d095a
+      spriteID: e453568e132878944848e73c53e909b2
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: AshSpawn_1
+      name: carrot_1
       rect:
         serializedVersion: 2
-        x: 16
-        y: 16
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 24
+        y: 0
+        width: 24
+        height: 24
+      alignment: 9
+      pivot: {x: 0.5, y: 0.15}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9ddce4be637644d4eafa4a5cf85a7425
+      spriteID: 3c68f4f5cda059c4eb8b33ff5586a18a
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: AshSpawn_2
-      rect:
-        serializedVersion: 2
-        x: 32
-        y: 16
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 24a3c856eb10bcc4493de7257d69191d
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: AshSpawn_3
+      name: carrot_2
       rect:
         serializedVersion: 2
         x: 48
-        y: 16
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        y: 0
+        width: 24
+        height: 24
+      alignment: 9
+      pivot: {x: 0.5, y: 0.15}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9c7efc2f7bdf26b43a1a19bcf8690da3
+      spriteID: e0546cf286ca71a44832595325518371
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: AshSpawn_4
+      name: carrot_3
       rect:
         serializedVersion: 2
-        x: 0
+        x: 72
         y: 0
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        width: 24
+        height: 24
+      alignment: 9
+      pivot: {x: 0.5, y: 0.15}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 07234722cf38a3b478caf0fbf1d02f20
+      spriteID: f858548f01ba63e4c9f995579ee1f53b
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: AshSpawn_5
+      name: carrot_4
       rect:
         serializedVersion: 2
-        x: 16
+        x: 96
         y: 0
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        width: 24
+        height: 24
+      alignment: 9
+      pivot: {x: 0.5, y: 0.15}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 195d6fdf2608ab14ab428451eb248958
+      spriteID: edb7538a6ebc5c54bb2f68747954c1fc
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: AshSpawn_6
+      name: carrot_5
       rect:
         serializedVersion: 2
-        x: 32
+        x: 120
         y: 0
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        width: 24
+        height: 24
+      alignment: 9
+      pivot: {x: 0.5, y: 0.15}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 262e34202cb53084a8fcced269c6b3c1
+      spriteID: 67ddb885f4f1cd349a6313b9eab46c92
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: carrot_6
+      rect:
+        serializedVersion: 2
+        x: 144
+        y: 0
+        width: 24
+        height: 24
+      alignment: 9
+      pivot: {x: 0.5, y: 0.15}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: eb1bb4561e148374993f8e8c24860fe7
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: carrot_7
+      rect:
+        serializedVersion: 2
+        x: 168
+        y: 0
+        width: 24
+        height: 24
+      alignment: 9
+      pivot: {x: 0.5, y: 0.15}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5b655a4ae3ac28545bcdd282ee3e4129
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: carrot_8
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 0
+        width: 24
+        height: 24
+      alignment: 9
+      pivot: {x: 0.5, y: 0.15}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 04b3d2c459b491d4086dcda04c386081
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: carrot_9
+      rect:
+        serializedVersion: 2
+        x: 216
+        y: 0
+        width: 24
+        height: 24
+      alignment: 9
+      pivot: {x: 0.5, y: 0.15}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f57de7ed791ea614eb84bcc9c8b647bc
       vertices: []
       indices: 
       edges: []
@@ -244,7 +307,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: ee2c5939f11af4647862f5f6b48f3e43
+    spriteID: 33a588bd1cdbdd246b66b835056ad403
     vertices: []
     indices: 
     edges: []
