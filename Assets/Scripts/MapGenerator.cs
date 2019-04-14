@@ -283,14 +283,14 @@ public class MapGenerator : MonoBehaviour
                 tilemap.SetTile(position, cellTypes[(byte)cells[x, y]]);
             else if (cells[x, y] == Cell.FIRE)
                 tilemap.SetTile(position, cellTypes[(byte)Cell.ASH]);
-            else if (cells[x, y] == Cell.BUSH || cells[x, y] == Cell.GROWING_BUSH || cells[x, y] == Cell.BURNING_BUSH || cells[x, y] == Cell.BURNING_GRASS)
+            else if (cells[x, y] == Cell.BUSH || cells[x, y] == Cell.GROWING_BUSH || cells[x, y] == Cell.BURNING_BUSH || cells[x, y] == Cell.BURNING_GRASS || cells[x, y] == Cell.GROWING_CARROT || cells[x, y] == Cell.CARROT)
                 tilemap.SetTile(position, cellTypes[(byte)Cell.GRASS]);
             else
             tilemap.SetTile(position, null);
         }
         if (tilemap == highLevel)
         {
-            if (cells[x, y] == Cell.BUSH || cells[x, y] == Cell.BURNING_BUSH || cells[x, y] == Cell.GROWING_BUSH)
+            if (cells[x, y] == Cell.BUSH || cells[x, y] == Cell.BURNING_BUSH || cells[x, y] == Cell.GROWING_BUSH || cells[x, y] == Cell.GROWING_CARROT || cells[x, y] == Cell.CARROT)
                 tilemap.SetTile(position, cellTypes[(byte)cells[x, y]]);
             else
                 tilemap.SetTile(position, null);
@@ -351,13 +351,13 @@ public class MapGenerator : MonoBehaviour
                         if (Random.Range(0, 10) == 0)
                         {
                             cells[x, y] = Cell.GROWING_CARROT;
-                            cellTimers[x, y] = 1.0f;
+                            cellTimers[x, y] = 0.8f;
                             RenderCell(x, y, highLevel);
                         }
                         else
                         {
                             cells[x, y] = Cell.GROWING_BUSH;
-                            cellTimers[x, y] = 1.0f;
+                            cellTimers[x, y] = 0.8f;
                             RenderCell(x, y, highLevel);
                         }
 
@@ -450,6 +450,8 @@ public class MapGenerator : MonoBehaviour
         {
             case Cell.GRASS:
             case Cell.GROWING_GRASS:
+            case Cell.GROWING_CARROT:
+            case Cell.CARROT:
                 cellTimers[x, y] = Random.Range(1.0f, 3.0f);
                 cells[x, y] = Cell.BURNING_GRASS;
                 RenderCell(x, y, midLevel);
@@ -503,6 +505,7 @@ public class MapGenerator : MonoBehaviour
             case Cell.GRASS:
             case Cell.BUSH:
             case Cell.ASH:
+            case Cell.CARROT:
                 cells[x, y] = Cell.DIRT;
                 cellTimers[x, y] = 5.0f * Random.value * 10.0f;
                 RenderCell(x, y, highLevel);

@@ -831,27 +831,27 @@ Tilemap:
       e33: 0
   - m_RefCount: 0
     m_Data:
-      e00: 0
-      e01: 0
+      e00: 922.05566
+      e01: 8.785469e-39
       e02: NaN
-      e03: 0
+      e03: 151.89539
       e10: 0
       e11: 0
       e12: NaN
-      e13: 0
-      e20: 0
-      e21: 0
+      e13: 1e-45
+      e20: 8.785547e-39
+      e21: 4.1571743e-24
       e22: 0
-      e23: 0
+      e23: 5.915536
       e30: 0
       e31: 0
       e32: 0
-      e33: 0
+      e33: 1e-45
   m_TileColorArray:
   - m_RefCount: 0
     m_Data: {r: 9.3747e-41, g: 9.3747e-41, b: 9.3747e-41, a: 9.3747e-41}
   - m_RefCount: 0
-    m_Data: {r: 6.7e-44, g: 6.7e-44, b: 6.7e-44, a: 6.7e-44}
+    m_Data: {r: 1.42e-43, g: 1.42e-43, b: 1.42e-43, a: 1.42e-43}
   m_AnimationFrameRate: 1
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Origin: {x: -23, y: -33, z: 0}
@@ -1103,7 +1103,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &399504100
 MonoBehaviour:
   m_ObjectHideFlags: 0
