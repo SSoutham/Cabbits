@@ -1,14 +1,30 @@
 fileFormatVersion: 2
 guid: 97783ef3bf90d5c40b3b7c1dd9667339
 TextureImporter:
+<<<<<<< Updated upstream
   fileIDToRecycleName:
     21300000: Sprite-0001_0
     21300002: Sprite-0001_1
     21300004: Sprite-0001_2
     21300006: Sprite-0001_3
     21300008: Sprite-0001_4
+=======
+  internalIDToNameTable:
+  - first:
+      213: 21300000
+    second: Sprite-0001_0
+  - first:
+      213: 21300002
+    second: Sprite-0001_1
+  - first:
+      213: 21300004
+    second: Sprite-0001_2
+  - first:
+      213: 21300006
+    second: Sprite-0001_3
+>>>>>>> Stashed changes
   externalObjects: {}
-  serializedVersion: 9
+  serializedVersion: 10
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -28,6 +44,7 @@ TextureImporter:
   isReadable: 0
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
+  vTOnly: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -62,8 +79,9 @@ TextureImporter:
   maxTextureSizeSet: 0
   compressionQualitySet: 0
   textureFormatSet: 0
+  ignorePngGamma: 0
   platformSettings:
-  - serializedVersion: 2
+  - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
     maxTextureSize: 256
     resizeAlgorithm: 0
@@ -74,7 +92,8 @@ TextureImporter:
     allowsAlphaSplitting: 0
     overridden: 0
     androidETC2FallbackOverride: 0
-  - serializedVersion: 2
+    forceMaximumCompressionQuality_BC6H_BC7: 1
+  - serializedVersion: 3
     buildTarget: Standalone
     maxTextureSize: 256
     resizeAlgorithm: 0
@@ -85,7 +104,8 @@ TextureImporter:
     allowsAlphaSplitting: 0
     overridden: 0
     androidETC2FallbackOverride: 0
-  - serializedVersion: 2
+    forceMaximumCompressionQuality_BC6H_BC7: 1
+  - serializedVersion: 3
     buildTarget: Android
     maxTextureSize: 256
     resizeAlgorithm: 0
@@ -96,6 +116,7 @@ TextureImporter:
     allowsAlphaSplitting: 0
     overridden: 0
     androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 1
   spriteSheet:
     serializedVersion: 2
     sprites:
@@ -114,7 +135,12 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
+<<<<<<< Updated upstream
       spriteID: 84f3da11cc5568d469060a91da0c761d
+=======
+      spriteID: 57246c86293e6614d9ed8425f4fccd4f
+      internalID: 21300000
+>>>>>>> Stashed changes
       vertices: []
       indices: 
       edges: []
@@ -134,7 +160,12 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
+<<<<<<< Updated upstream
       spriteID: 8e9a582ccbdfc754fab2361998a30c66
+=======
+      spriteID: 5031cc05fc414b5458aa6bad84f944ae
+      internalID: 21300002
+>>>>>>> Stashed changes
       vertices: []
       indices: 
       edges: []
@@ -154,7 +185,12 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
+<<<<<<< Updated upstream
       spriteID: 233fd5f1559a21a4cafe6422f68a5a7e
+=======
+      spriteID: d230b398cb39f1448aa9662b44b0f882
+      internalID: 21300004
+>>>>>>> Stashed changes
       vertices: []
       indices: 
       edges: []
@@ -174,6 +210,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
+<<<<<<< Updated upstream
       spriteID: 49220fb720286f044b0393876dbde117
       vertices: []
       indices: 
@@ -195,6 +232,10 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: f8d7bbfc76af21e4e9d3bc2ec7a4b8d0
+=======
+      spriteID: 4abe111204a27644eb569f8aa93519b0
+      internalID: 21300006
+>>>>>>> Stashed changes
       vertices: []
       indices: 
       edges: []
@@ -203,10 +244,12 @@ TextureImporter:
     physicsShape: []
     bones: []
     spriteID: 35a4dbbcc6f8dbf49924fda4cea8bd09
+    internalID: 0
     vertices: []
     indices: 
     edges: []
     weights: []
+    secondaryTextures: []
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

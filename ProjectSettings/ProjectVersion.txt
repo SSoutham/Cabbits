@@ -1,2 +1,7 @@
+<<<<<<< Updated upstream
 m_EditorVersion: 2019.1.0f2
 m_EditorVersionWithRevision: 2019.1.0f2 (292b93d75a2c)
+=======
+m_EditorVersion: 2020.1.0a17
+m_EditorVersionWithRevision: 2020.1.0a17 (ccc6f9131a63)
+>>>>>>> Stashed changes
