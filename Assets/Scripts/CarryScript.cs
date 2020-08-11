@@ -13,11 +13,10 @@ public enum DeathReason
 // Author: Iaroslav Titov (c)
 public class CarryScript : MonoBehaviour
 {
-    [SerializeField] Sprite[] sprites;
-    [Range(0.0f, 1.0f)] public float moveTolerance;
     [SerializeField] float flyRate;
     [SerializeField] float flySpeed;
     [SerializeField] float flyClamp;
+    [SerializeField] float speed;
     [SerializeField] GameObject soul;
     [SerializeField] GameObject[] deathPrefabs;
 
@@ -27,11 +26,15 @@ public class CarryScript : MonoBehaviour
     private Vector2 flyVelocity;
     private TopDownFollowCamera cameraMovement;
     private float flyTimer;
+    private float idleTimer;
     private Rigidbody2D rb;
     private new Collider2D collider;
     private MapGenerator map;
     private float carryTime = 0;
     private Queue<Vector2> previousPositions;
+    private Animator anim;
+    private Vector2Int? target = null;
+    private ScoreScript score;
 
     private void Start()
     {
@@ -41,6 +44,8 @@ public class CarryScript : MonoBehaviour
         collider = GetComponent<Collider2D>();
         map = GameObject.FindObjectOfType<MapGenerator>();
         previousPositions = new Queue<Vector2>();
+        anim = GetComponent<Animator>();
+        score = GameObject.FindObjectOfType<ScoreScript>();
     }
 
     void Update()
@@ -50,8 +55,11 @@ public class CarryScript : MonoBehaviour
         if (transform.position.x > 0 && transform.position.y > 0 && transform.position.x < map.worldWidth && transform.position.y < map.worldHeight)
             landedOn = map.GetCell(Mathf.FloorToInt(transform.position.x), Mathf.FloorToInt(transform.position.y));
 
+        anim.SetBool("SeeTarget", target != null);
         if (isCarried)
         {
+            idleTimer = 0;
+            target = null;
             carryTime += Time.deltaTime;
 
             previousPositions.Enqueue(rb.position);
@@ -72,17 +80,7 @@ public class CarryScript : MonoBehaviour
             collider.offset = new Vector2(0, 1.2f);
 
             // Change sprite based on drag
-            float movement = Mathf.Abs(Input.GetAxis("Mouse X"));
-            if (movement > moveTolerance)
-            {
-                render.sprite = sprites[2];
-                render.flipX = Input.GetAxis("Mouse X") > 0;
-            }
-            else if (movement < moveTolerance - .2f)
-            {
-                render.sprite = sprites[1];
-                render.flipX = false;
-            }
+            anim.SetFloat("SpeedX", Input.GetAxis("Mouse X"));
         }
         else // when not carried
         {
@@ -97,6 +95,34 @@ public class CarryScript : MonoBehaviour
             {
                 rb.velocity = Vector2.zero;
                 rb.rotation = 0;
+                idleTimer += Time.deltaTime;
+
+                if (target == null && idleTimer > 3)
+                {
+                    target = map.FindClosestCarrot(transform.position, 10);
+                    if (target == null)
+                    {
+                        anim.SetTrigger("Bored");
+                        idleTimer = -1 * anim.GetCurrentAnimatorClipInfo(0).Length;
+                    }
+                }
+                else
+                if (target != null)
+                {
+                    rb.velocity = ((Vector2)(target - rb.position + Vector2.right * 0.5f + Vector2.up)).normalized * speed;
+                    anim.SetFloat("SpeedX", rb.velocity.x);
+                    anim.SetFloat("SpeedY", rb.velocity.y);
+
+                    if (((Vector2)(target - rb.position + Vector2.right * 0.5f + Vector2.up)).magnitude < 0.1f)
+                    {
+                        anim.SetTrigger("NearCarrot");
+                        idleTimer = -1 * anim.GetCurrentAnimatorClipInfo(0).Length;
+
+                        Vector2Int v = (Vector2Int)target;
+                        StartCoroutine(ClickOnTile(v, .5f));
+                        target = null;
+                    }
+                }
 
                 if (landedOn == Cell.WATER || transform.position.x < 0 || transform.position.y < 0 || transform.position.x > map.worldWidth || transform.position.y > map.worldHeight)
                     Die(DeathReason.DROWN);
@@ -107,12 +133,20 @@ public class CarryScript : MonoBehaviour
             Die(DeathReason.BURN);
     }
 
+    private IEnumerator ClickOnTile(Vector2Int position, float wait)
+    {
+        yield return new WaitForSeconds(wait);
+
+        map.ClickOnTile(position.x, position.y);
+        score.AddScore(10);
+    }
+
     void OnMouseDown()
     {
         // Start carry
         if (isCarried) return;
         isCarried = true;
-        render.sprite = sprites[1];
+        anim.SetBool("Carried", isCarried);
         cameraMovement.enabled = false;
         previousPositions.Clear();
     }
@@ -120,6 +154,7 @@ public class CarryScript : MonoBehaviour
     private void OnMouseUp() // Send guy flying after mouse up
     {
         if (!isCarried) return;
+
 
         //Check for death on click
         if (carryTime < .1f && rb.velocity.magnitude < 1f) 
@@ -139,10 +174,9 @@ public class CarryScript : MonoBehaviour
 
     private void Land()
     {
-        render.sprite = sprites[3];
         render.flipX = false;
         collider.offset = new Vector2(0, 0.9f);
-        StartCoroutine(SetSpriteInSeconds(sprites[0], .25f));
+        anim.SetBool("Carried", isCarried);
     }
 
     public void Die(DeathReason reason)
@@ -151,6 +185,7 @@ public class CarryScript : MonoBehaviour
         isDead = true;
         Instantiate(soul, transform.position + Vector3.down * 1.5f, Quaternion.identity);
         Debug.Log("I died from " + reason);
+        score.Deactivate();
 
         GameObject go = Instantiate(deathPrefabs[(int)reason], transform.position, Quaternion.identity);
 
@@ -162,12 +197,7 @@ public class CarryScript : MonoBehaviour
 
         GetComponent<SpriteRenderer>().enabled = false;
         GetComponent<Collider2D>().enabled = false;
-        StartCoroutine(map.ReloadGame());
-    }
-
-    private IEnumerator SetSpriteInSeconds(Sprite s, float seconds)
-    {
-        yield return new WaitForSeconds(seconds);
-        render.sprite = s;
+        map.StartCoroutine(map.ReloadGame());
+        Destroy(gameObject);
     }
 }

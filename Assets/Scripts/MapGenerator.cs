@@ -37,11 +37,13 @@ public class MapGenerator : MonoBehaviour
     [SerializeField] Tilemap highLevel;
     [SerializeField] Tilemap topLevel;
     [SerializeField] List<TileBase> cellTypes;
+    public PoolManager poolManager;
     [SerializeField] int lakeNum = 0;
     [SerializeField] int cullingRadius = 20;
     [SerializeField] int platformSize = 0;
     public int worldWidth;
     public int worldHeight;
+
 
     [Header("Prefabs")]
     [SerializeField] TileBase ashSplash;
@@ -53,6 +55,7 @@ public class MapGenerator : MonoBehaviour
     private new Camera camera;
     private Vector3Int savedOldCameraPos;
     Vector3Int savedCameraPos;
+    private List<Vector2Int> carrots;
 
     void Start()
     {
@@ -60,6 +63,7 @@ public class MapGenerator : MonoBehaviour
         CreateStartMap();
         savedCameraPos = Vector3Int.FloorToInt(camera.transform.position);
         savedOldCameraPos = savedCameraPos;
+        carrots = new List<Vector2Int>();
     }
 
     public void UserTapped()
@@ -73,6 +77,7 @@ public class MapGenerator : MonoBehaviour
         yield return new WaitForSeconds(1.0f);
         startGameUI.SetActive(false);
         wholeScreenButton.SetActive(false);
+        GameObject.FindObjectOfType<ScoreScript>().Activate();
     }
 
     public bool isGameStarted()
@@ -150,16 +155,12 @@ public class MapGenerator : MonoBehaviour
 
         StartCoroutine(RenderMap(waterLevel, savedOldCameraPos, savedCameraPos, true));
         yield return new WaitForEndOfFrame();
-        System.GC.Collect();
         StartCoroutine(RenderMap(lowerLevel, savedOldCameraPos, savedCameraPos, true));
         yield return new WaitForEndOfFrame();
-        System.GC.Collect();
         StartCoroutine(RenderMap(midLevel, savedOldCameraPos, savedCameraPos, true));
         yield return new WaitForEndOfFrame();
-        System.GC.Collect();
         StartCoroutine(RenderMap(highLevel, savedOldCameraPos, savedCameraPos, true));
         yield return new WaitForEndOfFrame();
-        System.GC.Collect();
         StartCoroutine(RenderMap(topLevel, savedOldCameraPos, savedCameraPos, true));
     }
 
@@ -299,8 +300,6 @@ public class MapGenerator : MonoBehaviour
         {
             if (cells[x, y] == Cell.BURNING_GRASS || cells[x, y] == Cell.BURNING_BUSH || cells[x, y] == Cell.FIRE)
                 tilemap.SetTile(position, cellTypes[(byte)Cell.FIRE]);
-            else if (cells[x, y] == Cell.ASH)
-                tilemap.SetTile(position, ashSplash);
             else
                 tilemap.SetTile(position, null);
         }
@@ -377,6 +376,7 @@ public class MapGenerator : MonoBehaviour
                     if (cells[x, y] == Cell.GROWING_CARROT)
                     {
                         cells[x, y] = Cell.CARROT;
+                        carrots.Add(new Vector2Int(x, y));
                         cellTimers[x, y] = float.PositiveInfinity;
                         RenderCell(x, y, highLevel);
                         continue;
@@ -418,7 +418,11 @@ public class MapGenerator : MonoBehaviour
                     if (cells[x, y] == Cell.FIRE)
                     {
                         cells[x, y] = Cell.ASH;
-                        //GameObject go = Instantiate(ashSplash, new Vector2(x + 0.5f, y + 1f), Quaternion.identity);
+
+                        poolManager.pools["Fire"].Return(new Vector3Int(x,y, 0));
+
+                        if (Vector2.Distance(camera.transform.position, new Vector2(x, y)) < cullingRadius) topLevel.SetTile(new Vector3Int(x, y, 0), ashSplash);
+
                         cellTimers[x, y] = 5.0f * Random.value * 10.0f;
 
                         RenderCell(x, y, highLevel);
@@ -453,6 +457,7 @@ public class MapGenerator : MonoBehaviour
             case Cell.GROWING_CARROT:
             case Cell.CARROT:
                 cellTimers[x, y] = Random.Range(1.0f, 3.0f);
+                if (cells[x, y] == Cell.CARROT) carrots.RemoveAll(c => c.x == x && c.y == y);
                 cells[x, y] = Cell.BURNING_GRASS;
                 RenderCell(x, y, midLevel);
                 RenderCell(x, y, topLevel);
@@ -497,7 +502,7 @@ public class MapGenerator : MonoBehaviour
         return false;
     }
 
-    private void ClickOnTile(int x, int y)
+    public void ClickOnTile(int x, int y)
     {
         Debug.Log("I clicked on "+cells[x, y]);
         switch (cells[x,y])
@@ -506,6 +511,7 @@ public class MapGenerator : MonoBehaviour
             case Cell.BUSH:
             case Cell.ASH:
             case Cell.CARROT:
+                if (cells[x, y] == Cell.CARROT) carrots.RemoveAll(c => c.x == x && c.y == y);
                 cells[x, y] = Cell.DIRT;
                 cellTimers[x, y] = 5.0f * Random.value * 10.0f;
                 RenderCell(x, y, highLevel);
@@ -515,6 +521,10 @@ public class MapGenerator : MonoBehaviour
             case Cell.BURNING_GRASS:
             case Cell.FIRE:
                 cells[x, y] = Cell.ASH;
+
+                poolManager.pools["Fire"].Return(new Vector3Int(x, y, 0));
+
+                topLevel.SetTile(new Vector3Int(x,y,0), ashSplash);
 
                 cellTimers[x, y] = 5.0f * Random.value * 10.0f;
                 RenderCell(x, y, topLevel);
@@ -547,5 +557,21 @@ public class MapGenerator : MonoBehaviour
         {
             yield return null;
         }
+    }
+
+    public Vector2Int? FindClosestCarrot(Vector2 origin, float radius)
+    {
+        Vector2Int? res = null;
+
+        foreach (var carrot in carrots)
+        {
+            if (Vector2.Distance(origin, carrot) < radius)
+            {
+                if (res == null || Vector2.Distance(origin, carrot) < Vector2.Distance(origin, (Vector2)res))
+                    res = carrot;
+            }
+        }
+
+        return res;
     }
 }
