@@ -9,9 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 01fa296a321ef6443bcedbacc15f6543, type: 3}
+  m_Script: {fileID: 11500000, guid: 4d804c83856b0ca44837cbc7534da079, type: 3}
   m_Name: Fire
   m_EditorClassIdentifier: 
-  m_Prefab: {fileID: 1556013115243845330, guid: 9e3fc115ea5d7b94e8be12f9b4e7fc2f,
-    type: 3}
-  offset: {x: 0, y: -0.5}
+  poolType: Fire

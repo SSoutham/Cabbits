@@ -16,7 +16,8 @@ public class ThreatSpawner : MonoBehaviour
         if (!map.isGameStarted()) return;
 
         timer -= Time.deltaTime;
-        interval += intervalDecay * Time.deltaTime;
+        if (interval > .1f)
+            interval += intervalDecay * Time.deltaTime;
 
         if (timer <= 0)
         {
