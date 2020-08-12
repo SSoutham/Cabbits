@@ -7,7 +7,7 @@ public class DisappearingAsh : GrowingBush
 {
     public override void GrowEnd()
     {
-        gen.DisappearAsh(x, y);
+        //gen.DisappearAsh(x, y);
         Destroy(gameObject);
     }
 }

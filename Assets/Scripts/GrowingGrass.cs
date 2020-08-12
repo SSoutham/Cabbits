@@ -20,7 +20,7 @@ public class GrowingGrass : GrowingBush
 
     public override void GrowEnd()
     {
-        gen.GrowGrass(x, y);
+        //gen.GrowGrass(x, y);
         Destroy(gameObject);
     }
 }

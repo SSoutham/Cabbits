@@ -20,8 +20,8 @@ public class GrowingBush : MonoBehaviour
 
     public virtual void GrowEnd()
     {
-        action.Invoke(x, y);
-        gen.GrowBush(x, y);
+        //action.Invoke(x, y);
+        //gen.GrowBush(x, y);
         Destroy(gameObject);
     }
 }
