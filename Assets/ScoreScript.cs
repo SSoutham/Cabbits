@@ -16,6 +16,7 @@ public class ScoreScript : MonoBehaviour
     {
         StartCoroutine(EverySecondScore());
         highScoreText.text = "HighScore: " + PlayerPrefs.GetInt("HighScore").ToString();
+
     }
 
     public void Activate()
@@ -43,10 +44,11 @@ public class ScoreScript : MonoBehaviour
             }
 
             if (Input.GetKey(KeyCode.K) && Input.GetKey(KeyCode.E))
+            {
                 PlayerPrefs.SetInt("HighScore", 0);
+            }
         }
     }
-
     public void AddScore(int much)
     {
         if (!isActivated) return;

@@ -35,6 +35,7 @@ public class CarryScript : MonoBehaviour
     private Animator anim;
     private Vector2Int? target = null;
     private ScoreScript score;
+    private DeathCountScript death;
 
     private void Start()
     {
@@ -46,6 +47,7 @@ public class CarryScript : MonoBehaviour
         previousPositions = new Queue<Vector2>();
         anim = GetComponent<Animator>();
         score = GameObject.FindObjectOfType<ScoreScript>();
+        death = GameObject.FindObjectOfType<DeathCountScript>();
     }
 
     void Update()
@@ -157,7 +159,7 @@ public class CarryScript : MonoBehaviour
 
 
         //Check for death on click
-        if (carryTime < .1f && rb.velocity.magnitude < 1f) 
+        if (carryTime < .1f && rb.velocity.magnitude < 1f)
         {
             Die(DeathReason.SMASH);
             return;
@@ -183,9 +185,11 @@ public class CarryScript : MonoBehaviour
     {
         if (isDead) return;
         isDead = true;
+        death.AddDeath();
         Instantiate(soul, transform.position + Vector3.down * 1.5f, Quaternion.identity);
         Debug.Log("I died from " + reason);
         score.Deactivate();
+        death.Deactivate();
 
         GameObject go = Instantiate(deathPrefabs[(int)reason], transform.position, Quaternion.identity);
 

@@ -78,6 +78,7 @@ public class MapGenerator : MonoBehaviour
         startGameUI.SetActive(false);
         wholeScreenButton.SetActive(false);
         GameObject.FindObjectOfType<ScoreScript>().Activate();
+        GameObject.FindObjectOfType<DeathCountScript>().Activate();
     }
 
     public bool isGameStarted()
@@ -263,7 +264,7 @@ public class MapGenerator : MonoBehaviour
             if (tilemap == waterLevel) tilemap.SetTile(position, cellTypes[(byte)Cell.WATER]);
             return;
         }
-         
+
         if (tilemap == waterLevel)
         {
             if (cells[x, y] == Cell.WATER)
