@@ -7,7 +7,9 @@ public enum DeathReason
     SMASH = 0,
     DROWN = 1,
     BURN = 2,
-    ELECTRICITY = 3
+    ELECTRICITY = 3,
+    STARVED = 4,
+    POISONED = 5
 }
 
 // Author: Iaroslav Titov (c)
