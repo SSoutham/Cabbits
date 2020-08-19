@@ -7,7 +7,9 @@ public enum DeathReason
     SMASH = 0,
     DROWN = 1,
     BURN = 2,
-    ELECTRICITY = 3
+    ELECTRICITY = 3,
+    STARVED = 4,
+    POISONED = 5
 }
 
 // Author: Iaroslav Titov (c)
@@ -120,7 +122,9 @@ public class CarryScript : MonoBehaviour
 
                         Vector2Int v = (Vector2Int)target;
                         StartCoroutine(ClickOnTile(v, .5f));
+                        
                         target = null;
+                       
                     }
                 }
 
@@ -136,9 +140,18 @@ public class CarryScript : MonoBehaviour
     private IEnumerator ClickOnTile(Vector2Int position, float wait)
     {
         yield return new WaitForSeconds(wait);
-
-        map.ClickOnTile(position.x, position.y);
-        score.AddScore(10);
+        if (map.GetTileType(position.x, position.y) == Cell.ROTTEN_CARROT)
+        {
+            map.ClickOnTile(position.x, position.y);
+            anim.SetTrigger("Poisoned");
+            yield return new WaitForSeconds(anim.GetCurrentAnimatorClipInfo(0).Length);
+            Die(DeathReason.POISONED);
+        }
+        else
+        {
+            map.ClickOnTile(position.x, position.y);
+            score.AddScore(10);
+        }
     }
 
     void OnMouseDown()
