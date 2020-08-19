@@ -100,6 +100,7 @@
     <Compile Include="Assets\ExternalAssets\ProceduralLightning\Prefab\Scripts\Spells\LightningWhipSpell.cs" />
     <Compile Include="Assets\ExternalAssets\ProceduralLightning\Prefab\Scripts\ThunderAndLightningScript.cs" />
     <Compile Include="Assets\ScoreScript.cs" />
+    <Compile Include="Assets\Scripts\Achievements.cs" />
     <Compile Include="Assets\Scripts\CarryScript.cs" />
     <Compile Include="Assets\Scripts\DieInSeconds.cs" />
     <Compile Include="Assets\Scripts\FPSScript.cs" />
