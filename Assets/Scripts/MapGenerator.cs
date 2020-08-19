@@ -347,7 +347,7 @@ public class MapGenerator : MonoBehaviour
                     //Generate Bush or Carrot
                     if (cells[x, y] == Cell.GRASS && y != 1)
                     {
-                        if (Random.Range(0, 10) == 0)
+                        if (Random.Range(0, 10) == 0) //1/10 chance
                         {
                             cells[x, y] = Cell.GROWING_CARROT;
                             cellTimers[x, y] = 0.8f;
@@ -510,6 +510,11 @@ public class MapGenerator : MonoBehaviour
         if (cells[x, y - 1] == type) return true;
 
         return false;
+    }
+
+    public Cell GetTileType(int x, int y)
+    {
+        return cells[x, y];
     }
 
     public void ClickOnTile(int x, int y)
