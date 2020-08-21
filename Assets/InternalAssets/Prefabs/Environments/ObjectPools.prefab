@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: 382816120237775807}
   - component: {fileID: 382816120237775806}
   - component: {fileID: 382816120237775805}
+  - component: {fileID: 271171873}
   m_Layer: 0
   m_Name: ObjectPools
   m_TagString: Untagged
@@ -133,6 +134,8 @@ MonoBehaviour:
     pool: {fileID: 382816120237775806}
   - id: DisappearAsh
     pool: {fileID: 382816120237775805}
+  - id: GroundBreak
+    pool: {fileID: 271171873}
 --- !u!114 &382816120237775807
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -180,6 +183,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   prefab: {fileID: 7578205365542702501, guid: 5512e4d17fda91d44a14ebadd087521b, type: 3}
+  size: 30
+  grow: 1
+  returnIn: 0.5
+  keepTrack: 0
+--- !u!114 &271171873
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 382816120237775783}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b6d7b8f2fd7cdee48ae425857226c54c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefab: {fileID: 7578205365542702501, guid: 3f6aef6c9d949b4458d5c8b27365646c, type: 3}
   size: 30
   grow: 1
   returnIn: 0.5
