@@ -15,15 +15,11 @@ public enum AchievementEnums
 
 public class Achievements : MonoBehaviour
 {
-    private List<AchievementEnums> AchievementsAchieved;
+    /* For some God Awful reason, this list keeps resetting unless its static
+     * too bad! */
+    public static List<AchievementEnums> AchievementsAchieved = new List<AchievementEnums>();
 
-
-    void Start()
-    {
-        AchievementsAchieved = new List<AchievementEnums>();
-    }
-
-    void checkDeathAchievements()
+    public void checkDeathAchievements()
     {
         int deathCount = PlayerPrefs.GetInt("DeathCount");
 
@@ -31,19 +27,32 @@ public class Achievements : MonoBehaviour
          * This is honestly a terrible way of doing it. */
         if(deathCount >= 1)
         {
-            AchievementsAchieved.Add(AchievementEnums.DIE);
+            if (!AchievementsAchieved.Contains(AchievementEnums.DIE))
+            {
+                AchievementsAchieved.Add(AchievementEnums.DIE);
+                Debug.Log(AchievementsAchieved.Count);
+            }
         }
         if (deathCount >= 10)
         {
-            AchievementsAchieved.Add(AchievementEnums.DIETENTIMES);
+            if (!AchievementsAchieved.Contains(AchievementEnums.DIETENTIMES))
+            {
+                AchievementsAchieved.Add(AchievementEnums.DIETENTIMES);
+            }
         }
         if (deathCount >= 30)
         {
-            AchievementsAchieved.Add(AchievementEnums.DIETHIRTYTIMES);
+            if (!AchievementsAchieved.Contains(AchievementEnums.DIETHIRTYTIMES))
+            {
+                AchievementsAchieved.Add(AchievementEnums.DIETHIRTYTIMES);
+            }
         }
         if (deathCount >= 50)
         {
-            AchievementsAchieved.Add(AchievementEnums.DIEFIFTYTIMES);
+            if (!AchievementsAchieved.Contains(AchievementEnums.DIEFIFTYTIMES))
+            {
+                AchievementsAchieved.Add(AchievementEnums.DIEFIFTYTIMES);
+            }
         }
 
     }

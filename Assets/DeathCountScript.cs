@@ -46,7 +46,6 @@ public class DeathCountScript : MonoBehaviour
 
     public void AddDeath()
     {
-        if (!isActivated) return;
         deathCount++;
     }
 }

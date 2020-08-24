@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SocialPlatforms.Impl;
 
 public enum DeathReason
 {
@@ -36,6 +37,7 @@ public class CarryScript : MonoBehaviour
     private Vector2Int? target = null;
     private ScoreScript score;
     private DeathCountScript death;
+    private Achievements achievement;
 
     private void Start()
     {
@@ -48,6 +50,7 @@ public class CarryScript : MonoBehaviour
         anim = GetComponent<Animator>();
         score = GameObject.FindObjectOfType<ScoreScript>();
         death = GameObject.FindObjectOfType<DeathCountScript>();
+        achievement = new Achievements();
     }
 
     void Update()
@@ -190,6 +193,7 @@ public class CarryScript : MonoBehaviour
         Debug.Log("I died from " + reason);
         score.Deactivate();
         death.Deactivate();
+        achievement.checkDeathAchievements();
 
         GameObject go = Instantiate(deathPrefabs[(int)reason], transform.position, Quaternion.identity);
 
