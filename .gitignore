@@ -1,0 +1,10 @@
+
+.vs/
+
+Library/
+
+*.csproj
+
+Assets/InternalAssets/
+
+Assets/

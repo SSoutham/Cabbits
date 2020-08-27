@@ -19,6 +19,8 @@ public enum Cell : byte
     FIRE = 10,
     CARROT = 11,
     GROWING_CARROT = 12,
+    ROTTEN_CARROT = 13,
+    BREAKING_DIRT = 14,
     BURNING_GRASS = 98,
     NONE = 99,
 };
@@ -43,7 +45,6 @@ public class MapGenerator : MonoBehaviour
     [SerializeField] int platformSize = 0;
     public int worldWidth;
     public int worldHeight;
-
 
     [Header("Prefabs")]
     [SerializeField] TileBase ashSplash;
@@ -281,18 +282,18 @@ public class MapGenerator : MonoBehaviour
         }
         if (tilemap == midLevel)
         {
-            if (cells[x, y] == Cell.GRASS || cells[x, y] == Cell.ASH || cells[x, y] == Cell.GROWING_GRASS || cells[x, y] == Cell.GROWING_GRASS_FULL || cells[x, y] == Cell.DISAPPEARING_ASH)
+            if (cells[x, y] == Cell.GRASS || cells[x, y] == Cell.ASH || cells[x, y] == Cell.GROWING_GRASS || cells[x, y] == Cell.GROWING_GRASS_FULL || cells[x, y] == Cell.DISAPPEARING_ASH || cells[x, y] == Cell.BREAKING_DIRT)
                 tilemap.SetTile(position, cellTypes[(byte)cells[x, y]]);
             else if (cells[x, y] == Cell.FIRE)
                 tilemap.SetTile(position, cellTypes[(byte)Cell.ASH]);
-            else if (cells[x, y] == Cell.BUSH || cells[x, y] == Cell.GROWING_BUSH || cells[x, y] == Cell.BURNING_BUSH || cells[x, y] == Cell.BURNING_GRASS || cells[x, y] == Cell.GROWING_CARROT || cells[x, y] == Cell.CARROT)
+            else if (cells[x, y] == Cell.BUSH || cells[x, y] == Cell.GROWING_BUSH || cells[x, y] == Cell.BURNING_BUSH || cells[x, y] == Cell.BURNING_GRASS || cells[x, y] == Cell.GROWING_CARROT || cells[x, y] == Cell.CARROT || cells[x, y] == Cell.ROTTEN_CARROT)
                 tilemap.SetTile(position, cellTypes[(byte)Cell.GRASS]);
             else
             tilemap.SetTile(position, null);
         }
         if (tilemap == highLevel)
         {
-            if (cells[x, y] == Cell.BUSH || cells[x, y] == Cell.BURNING_BUSH || cells[x, y] == Cell.GROWING_BUSH || cells[x, y] == Cell.GROWING_CARROT || cells[x, y] == Cell.CARROT)
+            if (cells[x, y] == Cell.BUSH || cells[x, y] == Cell.BURNING_BUSH || cells[x, y] == Cell.GROWING_BUSH || cells[x, y] == Cell.GROWING_CARROT || cells[x, y] == Cell.CARROT || cells[x, y] == Cell.ROTTEN_CARROT)
                 tilemap.SetTile(position, cellTypes[(byte)cells[x, y]]);
             else
                 tilemap.SetTile(position, null);
@@ -319,8 +320,32 @@ public class MapGenerator : MonoBehaviour
                     cellTimers[x, y] -= Time.deltaTime;
                 else
                 {
+                    //Ground Deteriorate
+                    if (cells[x, y] == Cell.GRASS || cells[x, y] == Cell.DIRT || cells[x, y] == Cell.ASH)
+                    {
+                        if (SidesHave(x, y, Cell.WATER))
+                        {
+                            if (Random.Range(0, 10) == 0) //1/10 chance
+                            {
+                                if (cells[x, y] == Cell.GRASS || cells[x, y] == Cell.ASH) ClickOnTile(x, y); // remove grass or ash
+                                cells[x, y] = Cell.BREAKING_DIRT;
+                                cellTimers[x, y] = 0.5f;
+                                RenderCell(x, y, midLevel);
+                                continue;
+                            }
+                        }
+                    }
+
+                    //Ground Break
+                    if (cells[x, y] == Cell.BREAKING_DIRT)
+                    {
+                        ClickOnTile(x, y);
+                        continue;
+                    }
+
                     if (cells[x, y] == Cell.DIRT)
                     {
+                       
                         if (SidesHave(x,y,Cell.DIRT))
                         {
                             cells[x, y] = Cell.GROWING_GRASS;
@@ -345,10 +370,12 @@ public class MapGenerator : MonoBehaviour
                         continue;
                     }
 
+
+
                     //Generate Bush or Carrot
                     if (cells[x, y] == Cell.GRASS && y != 1)
                     {
-                        if (Random.Range(0, 10) == 0)
+                        if (Random.Range(0, 10) == 0) //1/10 chance
                         {
                             cells[x, y] = Cell.GROWING_CARROT;
                             cellTimers[x, y] = 0.8f;
@@ -373,12 +400,21 @@ public class MapGenerator : MonoBehaviour
                         continue;
                     }
 
-                    //Bush Grow
+                    //Carrot Grow
                     if (cells[x, y] == Cell.GROWING_CARROT)
                     {
                         cells[x, y] = Cell.CARROT;
                         carrots.Add(new Vector2Int(x, y));
-                        cellTimers[x, y] = float.PositiveInfinity;
+                        cellTimers[x, y] = 10.0f + 20.0f * Random.value; // no less than 10 sec, no more than 30
+                        RenderCell(x, y, highLevel);
+                        continue;
+                    }
+
+                    //Carrot Rot
+                    if (cells[x, y] == Cell.CARROT)
+                    {
+                        cells[x, y] = Cell.ROTTEN_CARROT;
+                        cellTimers[x, y] = float.PositiveInfinity; // never despawns
                         RenderCell(x, y, highLevel);
                         continue;
                     }
@@ -457,8 +493,9 @@ public class MapGenerator : MonoBehaviour
             case Cell.GROWING_GRASS:
             case Cell.GROWING_CARROT:
             case Cell.CARROT:
+            case Cell.ROTTEN_CARROT:
                 cellTimers[x, y] = Random.Range(1.0f, 3.0f);
-                if (cells[x, y] == Cell.CARROT) carrots.RemoveAll(c => c.x == x && c.y == y);
+                if (cells[x, y] == Cell.CARROT || cells[x, y] == Cell.ROTTEN_CARROT) carrots.RemoveAll(c => c.x == x && c.y == y);
                 cells[x, y] = Cell.BURNING_GRASS;
                 RenderCell(x, y, midLevel);
                 RenderCell(x, y, topLevel);
@@ -503,6 +540,11 @@ public class MapGenerator : MonoBehaviour
         return false;
     }
 
+    public Cell GetTileType(int x, int y)
+    {
+        return cells[x, y];
+    }
+
     public void ClickOnTile(int x, int y)
     {
         Debug.Log("I clicked on "+cells[x, y]);
@@ -512,7 +554,8 @@ public class MapGenerator : MonoBehaviour
             case Cell.BUSH:
             case Cell.ASH:
             case Cell.CARROT:
-                if (cells[x, y] == Cell.CARROT) carrots.RemoveAll(c => c.x == x && c.y == y);
+            case Cell.ROTTEN_CARROT:
+                if (cells[x, y] == Cell.CARROT || cells[x, y] == Cell.ROTTEN_CARROT) carrots.RemoveAll(c => c.x == x && c.y == y);
                 cells[x, y] = Cell.DIRT;
                 cellTimers[x, y] = 5.0f * Random.value * 10.0f;
                 RenderCell(x, y, highLevel);
@@ -531,6 +574,13 @@ public class MapGenerator : MonoBehaviour
                 RenderCell(x, y, topLevel);
                 RenderCell(x, y, highLevel);
                 RenderCell(x, y, midLevel);
+                break;
+            case Cell.BREAKING_DIRT:
+                poolManager.pools["GroundBreak"].Return(new Vector3Int(x, y, 0));
+                cells[x, y] = Cell.WATER;
+                RenderCell(x, y, midLevel);
+                RenderCell(x, y, lowerLevel);
+                RenderCell(x, y, waterLevel);
                 break;
             case Cell.DIRT:
                 cells[x, y] = Cell.WATER;
