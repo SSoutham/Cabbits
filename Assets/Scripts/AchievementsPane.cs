@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class AchievementsPane : MonoBehaviour
 {
@@ -11,7 +12,24 @@ public class AchievementsPane : MonoBehaviour
     [SerializeField] GameObject die30;
     [SerializeField] GameObject die50;
 
+    private int deathBySquash;
+    private int deathByDrowning;
+    private int deathByFire;
+    private int deathByLightning;
+    public TextMeshProUGUI SquashText;
+    public TextMeshProUGUI DrownText;
+    public TextMeshProUGUI FireText;
+    public TextMeshProUGUI LightningText;
+
     private bool isActive = false;
+
+    private void Start()
+    {
+        SquashText.text = PlayerPrefs.GetInt("SquashCount").ToString();
+        DrownText.text = PlayerPrefs.GetInt("DrownCount").ToString();
+        FireText.text = PlayerPrefs.GetInt("BurnCount").ToString();
+        LightningText.text = PlayerPrefs.GetInt("LightningCount").ToString();
+    }
 
 
     // Update is called once per frame

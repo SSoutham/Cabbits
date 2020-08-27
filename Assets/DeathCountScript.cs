@@ -7,6 +7,12 @@ using UnityEngine.UI;
 public class DeathCountScript : MonoBehaviour
 {
     private int deathCount;
+    private int deathBySquash;
+    private int deathByDrowning;
+    private int deathByFire;
+    private int deathByLightning;
+    private int deathByIllness;
+    private int deathByStarvation;
     public Text deathCountText;
     bool isActivated = false;
 
@@ -17,6 +23,10 @@ public class DeathCountScript : MonoBehaviour
     void Start()
     {
         deathCount = PlayerPrefs.GetInt("DeathCount");
+        deathBySquash = PlayerPrefs.GetInt("SquashCount");
+        deathByDrowning = PlayerPrefs.GetInt("DrownCount");
+        deathByFire = PlayerPrefs.GetInt("BurnCount");
+        deathByLightning = PlayerPrefs.GetInt("LightningCount");
         deathCountText.text = "DeathCount: " + PlayerPrefs.GetInt("DeathCount").ToString();
     }
 
@@ -33,7 +43,34 @@ public class DeathCountScript : MonoBehaviour
         isActivated = false;
         int currentDeathCount = PlayerPrefs.GetInt("DeathCount");
         if (deathCount > currentDeathCount)
+        {
             PlayerPrefs.SetInt("DeathCount", deathCount);
+        }
+
+        int currentSquashCount = PlayerPrefs.GetInt("SquashCount");
+        if (deathBySquash > currentSquashCount)
+        {
+            PlayerPrefs.SetInt("SquashCount", deathBySquash);
+        }
+
+        int currentDrownCount = PlayerPrefs.GetInt("DrownCount");
+        if (deathByDrowning > currentDrownCount)
+        {
+            PlayerPrefs.SetInt("DrownCount", deathByDrowning);
+        }
+
+        int currentBurnCount = PlayerPrefs.GetInt("BurnCount");
+        if (deathByFire > currentBurnCount)
+        {
+            PlayerPrefs.SetInt("BurnCount", deathByFire);
+        }
+
+        int currentLightningCount = PlayerPrefs.GetInt("LightningCount");
+        if (deathByLightning > currentLightningCount)
+        {
+            PlayerPrefs.SetInt("LightningCount", deathByLightning);
+        }
+
     }
 
     private void ResetDeathCount()
@@ -44,8 +81,25 @@ public class DeathCountScript : MonoBehaviour
         }
     }
 
-    public void AddDeath()
+    public void AddDeath(DeathReason reason)
     {
         deathCount++;
+
+        if (reason == DeathReason.SMASH)
+        {
+            deathBySquash++;
+        }
+        else if (reason == DeathReason.DROWN)
+        {
+            deathByDrowning++;
+        }
+        else if (reason == DeathReason.BURN)
+        {
+            deathByFire++;
+        }
+        else if( reason == DeathReason.ELECTRICITY)
+        {
+            deathByLightning++;
+        }
     }
 }

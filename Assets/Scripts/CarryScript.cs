@@ -188,7 +188,7 @@ public class CarryScript : MonoBehaviour
     {
         if (isDead) return;
         isDead = true;
-        death.AddDeath();
+        death.AddDeath(reason);
         Instantiate(soul, transform.position + Vector3.down * 1.5f, Quaternion.identity);
         Debug.Log("I died from " + reason);
         score.Deactivate();
