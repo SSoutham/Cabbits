@@ -101,13 +101,15 @@ MonoBehaviour:
   flySpeed: 30
   flyClamp: 0.4
   speed: 5
+  starveTime: 45
   soul: {fileID: 8221237474204533389, guid: c6787ea4a5cc6944b94d71bfc6a4f033, type: 3}
+  hunger: {fileID: 8221237474204533389, guid: 767ab44eb24d0514087700cd267a0a40, type: 3}
   deathPrefabs:
   - {fileID: 4759192966294696360, guid: de49e0a00c9b02144bdd470111ba43e6, type: 3}
   - {fileID: 2579282786276082734, guid: 3b54be8f538a71e49ba5a2b6bc12d84f, type: 3}
   - {fileID: 5611450556122799952, guid: 98897872d1b8b7a4d9bc400e1b796a38, type: 3}
   - {fileID: 1976672955577465308, guid: 6216d731d64956247bf17c5ab43faa0e, type: 3}
-  - {fileID: 4759192966294696360, guid: de49e0a00c9b02144bdd470111ba43e6, type: 3}
+  - {fileID: 4759192966294696360, guid: f5500c1571e88194e99f8564557b6855, type: 3}
   - {fileID: 5611450556122799952, guid: 5ca1b0887edc04f43a881cdaf02c99e7, type: 3}
 --- !u!58 &3777737811146223733
 CircleCollider2D:

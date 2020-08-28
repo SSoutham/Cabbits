@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SocialPlatforms.Impl;
+using UnityEngine.UIElements;
 
 public enum DeathReason
 {
@@ -20,16 +21,20 @@ public class CarryScript : MonoBehaviour
     [SerializeField] float flySpeed;
     [SerializeField] float flyClamp;
     [SerializeField] float speed;
+    [SerializeField] float starveTime;
     [SerializeField] GameObject soul;
+    [SerializeField] GameObject hunger;
     [SerializeField] GameObject[] deathPrefabs;
 
     private bool isCarried;
     private bool isDead;
+    private bool isHunger = false;
     private SpriteRenderer render;
     private Vector2 flyVelocity;
     private TopDownFollowCamera cameraMovement;
     private float flyTimer;
     private float idleTimer;
+    private float starveTimer;
     private Rigidbody2D rb;
     private new Collider2D collider;
     private MapGenerator map;
@@ -127,7 +132,8 @@ public class CarryScript : MonoBehaviour
 
                         Vector2Int v = (Vector2Int)target;
                         StartCoroutine(ClickOnTile(v, .5f));
-                        
+                        starveTimer = 0f;
+                        isHunger = false;
                         target = null;
                        
                     }
@@ -140,6 +146,21 @@ public class CarryScript : MonoBehaviour
 
         if (landedOn == Cell.BURNING_BUSH || landedOn == Cell.BURNING_GRASS)
             Die(DeathReason.BURN);
+
+        if(starveTimer > starveTime / 2 && !isHunger)
+        {
+            Instantiate(hunger, transform.position + Vector3.down * 1.5f, Quaternion.identity);
+            isHunger = true;
+        } 
+        else
+        if (starveTimer > starveTime)
+            Die(DeathReason.STARVED);
+
+        starveTimer += Time.deltaTime;
+        if (Input.GetKey(KeyCode.Space))
+        {
+            Debug.Log(starveTimer);
+        }
     }
 
     private IEnumerator ClickOnTile(Vector2Int position, float wait)
